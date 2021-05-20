@@ -64,7 +64,7 @@
                         <li class="nav-item dropdown" style=" right:0px;">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="{{user.profile.image.url}}" alt="image" width="30px" height="30px" style="border-radius: 50%; cursor:pointer"></a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="">Profile</a>
+                                <a class="dropdown-item" href="{% url 'profile' %}">Profile</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
                             </div>
@@ -135,7 +135,7 @@
     <script type="text/javascript" src="/media/bootstrap/js/jquery-3.6.0.min.js"></script>
     <script type="text/javascript" src="/media/bootstrap/js/bf12ee2437.js"></script>
     <script type="text/javascript" src="/media/bootstrap/js/popper.min.js"></script>
-    <script type="text/javascript" type="text/javascript" src="/media/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/media/bootstrap/js/bootstrap.min.js"></script>
     {% block js_script %}{% endblock %}
     <script src=""></script>
 </body>

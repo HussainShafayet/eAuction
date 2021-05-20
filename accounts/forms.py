@@ -3,6 +3,7 @@ from .import models
 from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
 from django.contrib.auth.models import User
+from .models import Profile
 
 
 class Register(UserCreationForm):
@@ -50,3 +51,19 @@ class Register(UserCreationForm):
 class UserLoginForm(forms.Form):
     email = forms.EmailField(widget=forms.EmailInput)
     password = forms.CharField(widget=forms.PasswordInput)
+
+
+class Profile_edit_Form(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = [
+            'first_name', 'last_name', 'username', 'email',
+        ]
+
+class Profile_form(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = [
+            'image'
+        ]
+        

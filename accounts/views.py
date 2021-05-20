@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from accounts.forms import Register, UserLoginForm
+from accounts.forms import Register, UserLoginForm, Profile_edit_Form, Profile_form
 from accounts.models import Profile
 from django.contrib import messages
 from django.contrib.auth.models import User
@@ -120,3 +120,81 @@ class ResetPasswordConfirm(PasswordResetConfirmView):
 
 class ResetPasswordComplete(PasswordResetCompleteView):
     template_name = 'password_reset_complete.html'
+
+
+def profile(request):
+    current_user = request.user
+    user = User.objects.get(username=current_user)
+    profile_details = 'profile_details'
+    context = {
+        'user': user,
+        'profile_details': profile_details
+    }
+    return render(request, 'profile.html', context)
+
+
+def profile_edit(request, id):
+    if request.method == 'POST':
+        form = Profile_edit_Form(request.POST, instance=request.user)
+        form2 = Profile_form(request.POST or None, request.FILES or None, instance=request.user.profile)
+        if form.is_valid() and form2.is_valid():
+            form.save()
+            profile = Profile.objects.get(user=request.user)
+            image = profile.image
+            if str(image) in '/images/profile/profile.png':
+                form2.save()
+                messages.success(request, 'Profile update success')
+                return redirect('profile')
+            else:
+                image.delete()
+                form2.save()
+                messages.success(request, 'Profile update success')
+                return redirect('profile')
+        else:
+            messages.warning(request, 'Try again')
+            context = {
+                'form': form,
+                'form2': form2
+
+            }
+            return render(request, 'profile.html', context)
+    else:
+        form = Profile_edit_Form(instance=request.user)
+        form2 = Profile_form()
+        context = {
+            'form': form,
+            'form2': form2
+
+        }
+    return render(request, 'profile.html', context)
+
+
+def password_change(request, id):
+    if request.method == 'POST':
+        current_user = User.objects.get(id=id)
+        password_form = PasswordChangeForm(
+            data=request.POST, user=current_user)
+        if password_form.is_valid():
+            password_form.save()
+            messages.success(request, 'Password change successfully!')
+            update_session_auth_hash(request, password_form.user)
+            return redirect('profile')
+        else:
+            messages.warning(request, 'Try again!')
+            val = 'password_change'
+            context = {
+                'password_form': password_form,
+                'user': current_user,
+                'val': val,
+            }
+            return render(request, 'profile.html', context)
+    else:
+        current_user = User.objects.get(id=id)
+        password_form = PasswordChangeForm(user=current_user)
+        val = 'password_change'
+        context = {
+            'password_form': password_form,
+            'user': current_user,
+            'val': val,
+        }
+        return render(request, 'profile.html', context)

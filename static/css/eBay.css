@@ -45,6 +45,31 @@
     }
     
     
+    #menu ul {
+        list-style-type: none;
+        display: flex;
+        margin: 0;
+        padding: 0;
+    }
+    
+    #menu a {
+        text-decoration: none;
+        text-transform: capitalize;
+        padding: 6px 7px;
+        font-size: 15px;
+        display: block;
+        color: black;
+    }
+    
+    #menu a:hover {
+        background-color: cornflowerblue;
+        transition: 1.2s;
+        -webkit-transition: 1.2s;
+        -moz-transition: 1.2s;
+        -ms-transition: 1.2s;
+        -o-transition: 1.2s;
+    }
+    
     #prof ul {
         list-style-type: none;
         display: flex;
@@ -55,21 +80,13 @@
     #prof a {
         text-decoration: none;
         text-transform: capitalize;
-        padding: 0px;
-        font-size: 17px;
+        padding: 12px 14px;
+        font-size: 20px;
         display: block;
-        color: white;
-    }
-    #prof a:hover{
         color: black;
-        transition: 0.5s;
-        -webkit-transition: 0.5s;
-        -moz-transition: 0.5s;
-        -ms-transition: 0.5s;
-        -o-transition: 0.5s;
-}
-
-#dropdown {
+    }
+    
+    #dropdown {
         position: relative;
     }
     
@@ -125,7 +142,10 @@
         display: block;
         margin-right: 20px;
     }
-  
+    
+    .text-muted ul {
+        margin-left: 30px;
+    }
 /*Register_form*/
 #hint_id_password1 ul li{
     list-style: none;
