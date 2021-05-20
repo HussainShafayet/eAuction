@@ -1,0 +1,143 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} eBay {% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="/media/bootstrap/css/bootstrap.min.css" media="all">
+    <link rel="stylesheet" type="text/css" href="/media/bootstrap/css/bootstrap.min.css.map" media="all">
+    <link rel="stylesheet" href="{% static 'css/eBay.css'  %}" type="text/css">{% block style %}{% endblock %}
+</head>
+
+<body>
+
+    <!--  <div class="jumbotron text-center" style="margin-bottom:0;background-color:rgb(202, 201, 201);max-height:175px;margin: 0 auto">
+        
+    </div> -->
+
+
+    <div>
+        <nav class="navbar navbar-expand-lg navbar-light " style="background-color: #46815d;">
+            <a class="navbar-brand" href="">eAuction</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                    {% if user.is_authenticated and user.is_superuser%}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'auction_items' %}">Auction</a>
+                    </li>
+                    {% elif user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'auction_items' %}">Auction</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'auction_create' %}">Create</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'user_items' %}">My Posted Items</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'my_bid' %}">My Bid</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'complete_auctions' %}">Complete Auctions</a>
+                    </li>
+
+                    {% else %}
+
+                    <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="">About</a>
+                    </li>
+                    {% endif %}
+                </ul>
+                <div id="prof">
+                    <ul>
+                        {% if user.is_authenticated %}
+                        <li class="nav-item dropdown" style=" right:0px;">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="{{user.profile.image.url}}" alt="image" width="30px" height="30px" style="border-radius: 50%; cursor:pointer"></a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="">Profile</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+                            </div>
+                        </li>
+
+                        {% else %}
+                        <li class="nav-item" style="margin-right: 10px;">
+                            <a class="nav-link" href="{% url 'register' %}">Registration</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'login' %}">Login</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+                <!-- <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form> -->
+            </div>
+        </nav>
+    </div>
+    <!-- Body -->
+    <div style="margin-top:30px">
+        <div class="row">
+            {% block sidelink%} {% endblock %}
+            <div class="col-sm" style=" min-height:800px">
+
+                {% block body %}{% endblock %}
+
+            </div>
+            <!-- <div class="col-sm-2">
+                <h3>Some Links</h3>
+                <p>Lorem ipsum dolor sit ame.</p>
+                <ul class="nav nav-pills flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link " href="#">Link</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#">Disabled</a>
+                    </li>
+                </ul>
+            </div> -->
+        </div>
+    </div>
+    <!-- Footer -->
+    <div class="jumbotron text-center" style="margin-bottom:0;margin-top: 100px;">
+        <p>copyright@SS</p>
+
+        <div style="margin: 24px 0;">
+            <a href="https://www.google.com/"><i class="fa fa-google"></i></a>
+            <a href="https://www.twitter.com/"><i class="fa fa-twitter"></i></a>
+            <a href="https://www.linkedin.com/"><i class="fa fa-linkedin"></i></a>
+            <a href="https://www.facebook.com/"><i class="fa fa-facebook"></i></a>
+        </div>
+    </div>
+
+
+
+
+    <script type="text/javascript" src="/media/bootstrap/js/jquery-3.5.1.slim.min.js"></script>
+    <script type="text/javascript" src="/media/bootstrap/js/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="/media/bootstrap/js/bf12ee2437.js"></script>
+    <script type="text/javascript" src="/media/bootstrap/js/popper.min.js"></script>
+    <script type="text/javascript" type="text/javascript" src="/media/bootstrap/js/bootstrap.min.js"></script>
+    {% block js_script %}{% endblock %}
+    <script src=""></script>
+</body>
+
+</html>

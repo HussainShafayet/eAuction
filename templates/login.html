@@ -1,0 +1,36 @@
+{% extends 'base.html' %}{% load crispy_forms_tags %}{% block title %}LogIn{% endblock %} {% block style %}
+
+<style>
+    .alert-warning {
+        color: black;
+        background-color: #ffcdcd;
+        border-color: #ffeeba;
+    }
+</style>
+
+{%endblock%} {% block body %}
+<div class="container">
+    <div id="div_login">
+        <h3 style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; margin-top:5px;">Login Here
+            <hr>
+        </h3>
+        <div class="container">
+            {% if messages %} {% for message in messages %}
+            <div class="alert alert-{{message.tags}}" role="alert" id=" ">
+                <button type="button" class="close" data-dismiss="alert">X</button> {{message}}
+            </div>
+            {% endfor %} {% endif %}
+        </div>
+
+        <form action="" method="POST">
+            {% csrf_token %} {{log_form|crispy}}
+            <div >
+            <a style="text-transform: capitalize;text-decoration:none;" href="{% url 'password_reset' %}">Forgot password? </a>
+            </div>
+            <input id="log-btn" type="submit" class="btn btn-info" value="Login">
+
+        </form>
+        <p id="reg-log">Don't have an account? <a style="text-transform: capitalize;text-decoration:none;" href="{% url 'register' %}">sign up </a></p>
+    </div>
+</div>
+{% endblock %}

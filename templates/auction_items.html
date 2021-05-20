@@ -1,0 +1,138 @@
+{% extends 'base.html' %}{% load crispy_forms_tags %} {% block title %} Auction Items{% endblock %} {% block style %}
+<style>
+    .show-read-more .more-text {
+        display: none;
+    }
+</style>
+{% endblock %} {% block body %}
+
+<!-- auction_create_form -->
+{% if value == 'Form' %}
+
+<div class="cotainer">
+    <div class="row" style="margin-top: 20px;">
+        <div class="col"></div>
+        <div class="col-sm">
+            <h3 class="text-center">Create Auction
+                <hr>
+            </h3>
+            <div>
+                {% if messages %} {% for message in messages %}
+                <div class="alert alert-{{message.tags}}" role="alert">
+                    <button type="button" class="close" data-dismiss="alert">X</button> {{message}}
+                </div>
+                {% endfor %} {% endif %}
+            </div>
+            <form class="form-horizontal form_middle" method="POST" enctype="multipart/form-data">
+                {% csrf_token %} {{form|crispy}}
+                <input id="add-subm" class="btn btn-info" type="submit" value="Submit">
+            </form>
+        </div>
+        <div class="col"></div>
+
+    </div>
+</div>
+{% elif value == 'edit_user_item' %}
+<div class="cotainer">
+    <div class="row" style="margin-top: 20px;">
+        <div class="col"></div>
+        <div class="col-sm">
+            <h3 class="text-center">Create Auction
+                <hr>
+            </h3>
+            <div>
+                {% if messages %} {% for message in messages %}
+                <div class="alert alert-{{message.tags}}" role="alert">
+                    <button type="button" class="close" data-dismiss="alert">X</button> {{message}}
+                </div>
+                {% endfor %} {% endif %}
+            </div>
+            <form class="form-horizontal form_middle" method="POST" enctype="multipart/form-data">
+                {% csrf_token %} {{form|crispy}}
+                <input id="add-subm" class="btn btn-info" type="submit" value="Submit">
+            </form>
+        </div>
+        <div class="col"></div>
+
+    </div>
+</div>
+
+
+
+{% else %}
+
+<div class="container">
+    <div>
+        {% if messages %} {% for message in messages %}
+        <div class="alert alert-{{message.tags}}" role="alert">
+            <button type="button" class="close" data-dismiss="alert">X</button> {{message}}
+        </div>
+        {% endfor %} {% endif %}
+    </div>
+
+    <div class="container">
+        {% if new_list %}
+        <h3 class="text-center">Auction Items Gallery
+            <hr>
+        </h3>
+        {% if user.is_superuser %}
+        <h5>Total No of Auction: {{count}}</h5>
+        <h5>Total Price of auction: {{tatal_value.Price__sum}}</h5>
+        {% endif %}
+        <div class="row">
+            {% for auction in new_list %} {% if auction.active == True %}
+            <div class="col">
+                <div class="card-deck">
+                    <div class="card">
+                        <img src="{{auction.Photo.url}}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">{{auction.Name}}</h5>
+                            <p class="card-text  show-read-more">{{auction.Description}}</p>
+                            <a class="btn btn-info btn-sm" href="{% url 'item_details' auction.id %}">Details</a>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">{{auction.DateTime|timeuntil:today}} left.</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %} {%endfor%}
+            <div class="col">
+
+            </div>
+        </div>
+
+        {% else %}
+        <p class="text-center" style="color: red;margin-top:60px;">No Expenes here</p>
+        {% endif %}
+    </div>
+
+
+</div>
+
+
+{% endif %} {% endblock %} {% block js_script %}
+<script src="/media/bootstrap/js/jquery-3.5.1.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        var maxLength = 70;
+        $(".show-read-more").each(function() {
+
+            var myStr = $(this).text();
+
+            if ($.trim(myStr).length > maxLength) {
+                var newStr = myStr.substring(0, maxLength);
+                var removedStr = myStr.substring(maxLength, $.trim(myStr).length);
+                $(this).empty().html(newStr);
+                $(this).append(' <a href="javascript:void(0);" class="read-more">read more...</a>');
+                $(this).append('<span class="more-text">' + removedStr + '</span>');
+            }
+        });
+        $(".read-more").click(function() {
+            $(this).siblings(".more-text").contents().unwrap();
+            $(this).remove();
+        });
+    });
+</script>
+{% endblock %}

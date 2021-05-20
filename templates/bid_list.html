@@ -1,0 +1,60 @@
+{% extends 'base.html' %}{% load crispy_forms_tags %} {% block title %}My Auction Items{% endblock %} {% block style %}
+<style>
+
+</style>
+{% endblock %} {% block body %}
+
+<div class="container">
+    <div>
+        {% if messages %} {% for message in messages %}
+        <div class="alert alert-{{message.tags}}" role="alert">
+            <button type="button" class="close" data-dismiss="alert">X</button> {{message}}
+        </div>
+        {% endfor %} {% endif %}
+    </div>
+
+    <div class="container">
+        {% if bids %}
+        <h3 class="text-center">My bid items
+            <hr>
+        </h3>
+
+        <div class="row">
+            {% for auction in bids %} {% if auction.active == True %}
+
+            <div class="col">
+                <div class="card-deck">
+                    <div class="card">
+                        <img src="{{auction.item.Photo.url}}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">{{auction.item}}</h5>
+                            <p class="card-text">{{auction.description}}</p>
+                            <p class="card-text">Price: {{auction.bid}}</p>
+                            <a class="btn btn-info btn-sm" href="{% url 'edit_my_bid' auction.id %}">Edit</a>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">{{auction.item.DateTime.date|timeuntil:today}} left.</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %} {%endfor%}
+            <div class="col">
+
+            </div>
+        </div>
+
+        {% else %}
+        <p class="text-center" style="color: red;margin-top:60px;">No Bid here</p>
+        {% endif %}
+    </div>
+
+
+</div>
+
+
+{% endblock %} {% block js_script %}
+
+<script>
+</script>
+{% endblock %}

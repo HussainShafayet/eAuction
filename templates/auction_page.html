@@ -1,0 +1,177 @@
+{% extends 'base.html' %}{% load crispy_forms_tags %} {% block style %}
+<style>
+    .card1 {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        max-width: 800px;
+        margin: auto;
+        font-family: arial;
+    }
+    
+    .profile-header {
+        position: relative;
+        min-height: 130px;
+        margin-top: 120px;
+    }
+    
+    .profile-image {
+        position: absolute;
+        border-radius: 50%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -90%);
+    }
+    
+    .title1 {
+        color: grey;
+        font-size: 18px;
+    }
+    
+    .header {
+        width: 150px;
+        text-align: left;
+        font-weight: bold;
+    }
+</style>
+{% endblock %} {% block body %}
+<div class="container">
+    <div class="card1">
+        <div class="profile-header">
+            <div style="text-align: center;">
+                <img src="{{item.Photo.url}}" alt="Profile picture" class="card-img-top" style="max-width:320px;max-height:320px;margin-top: 10px;">
+            </div>
+        </div>
+
+        <div>
+            {% if messages %} {% for message in messages %}
+            <div class="alert alert-{{message.tags}}" role="alert" id="">
+                <button type="button" class="close" data-dismiss="alert">X</button> {{message}}
+            </div>
+            {% endfor %} {% endif %}
+        </div>
+        <!-- item_Details -->
+        {% if item_details == 'item_details' %}
+        <div style="margin-top: 20px;">
+            <h2 style="text-align:center ">{{item.Name}} Information</h2>
+            <table class="table">
+
+                <tr>
+                    <td class="header">Name: </td>
+                    <td>{{item.Name}}</td>
+                </tr>
+                <tr>
+                    <td class="header">Description: </td>
+                    <td>{{item.Description}}</td>
+                </tr>
+                <tr>
+                    <td class="header">Minimum Price: </td>
+                    <td>{{item.Price}} Tk</td>
+                </tr>
+                <tr>
+                    <td class="header">End Date: </td>
+                    <td>{{item.DateTime.date}}</td>
+                </tr>
+            </table>
+            <div class="container" style="margin-top: 30px;min-height:350px">
+                <div class="row" style="margin: 20px;">
+                    <div class="col-sm"></div>
+                    <div class="col-sm" style="text-align: start; margin-bottom:20px">
+                        <form action="" method="POST">
+                            {% csrf_token %}{{form|crispy}}
+                            <button type="submit" class="btn btn-info mb-2">Bid</button>
+                        </form>
+
+                    </div>
+                    <div class="col-sm"></div>
+
+                </div>
+                <div>
+                    <a href="{% url 'bid_list' item.id %}" class="btn btn-info btn-sm" style="margin: 10px;float:right;">Bid list>></a>
+                </div>
+
+            </div>
+        </div>
+        {% else %}
+        <div class="container" style="margin-top: 30px;">
+            <div style="margin-top: 20px;">
+                <h2 style="text-align:center ">{{item.Name}} Information</h2>
+                <table class="table">
+
+                    <tr>
+                        <td class="header">Name: </td>
+                        <td>{{item.Name}}</td>
+                    </tr>
+                    <tr>
+                        <td class="header">Description: </td>
+                        <td>{{item.Description}}</td>
+                    </tr>
+                    <tr>
+                        <td class="header">Minimum Price: </td>
+                        <td>{{item.Price}} Tk</td>
+                    </tr>
+                    <tr>
+                        <td class="header">End Date: </td>
+                        <td>{{item.DateTime.date}}</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="container">
+                {% if list_of_bid %}
+                <h3 class="text-center">Bid list of {{item.Name}} auction.
+                    <hr>
+                </h3>
+
+                <div>
+                    <table class="table">
+                        <thead class="thead">
+                            <tr>
+                                <th>Item</th>
+                                <th>Description</th>
+                                <th>Bid</th>
+                                <th>Details</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for auction in list_of_bid %} {% if auction.active == True %}
+                            <tr>
+                                <td>{{auction.item}}</td>
+                                <td>{{auction.description}}</td>
+                                <td>{{auction.bid}}</td>
+                                <td><a class="btn btn-info btn-sm" href="{% url 'bid_details' auction.id %}">More</a></td>
+                            </tr>
+                            {% endif %} {%endfor%}
+
+                        </tbody>
+                    </table>
+
+
+
+                    
+                    <!-- <div class="col">
+                        <div class="card-deck" style="margin-bottom: 20px;">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{auction.item}}</h5>
+                                    <p class="card-text">{{auction.description}}</p>
+                                    <p class="card-text">{{auction.bid}}</p>
+                                    <a class="btn btn-info btn-sm" href="">More</a>
+                                </div>
+                                <div class="card-footer">
+                                    <small class="text-muted">{{auction.item.DateTime.date|timeuntil:today}} left.</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
+
+                {% else %}
+                <p class="text-center" style="color: red;margin:20px;">No Bid here</p>
+                {% endif %}
+            </div>
+
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

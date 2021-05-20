@@ -1,0 +1,197 @@
+    @import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap');
+    * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
+    
+    body {
+        margin: 0;
+        padding: 0;
+    }
+    /*Profile*/
+    
+    nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: auto;
+    }
+    
+    .navbar-light .navbar-nav .nav-link {
+        color: white;
+        font-size: 17px;
+    }
+    
+    .navbar-light .navbar-brand {
+        color: rgb(250, 180, 4);
+        font-size: 25px;
+    }
+    
+    .navbar-light .navbar-nav .nav-link:focus,
+    .navbar-light .navbar-nav .nav-link:hover {
+        color: black;
+        transition: .5s;
+        -webkit-transition: .5s;
+        -moz-transition: .5s;
+        -ms-transition: .5s;
+        -o-transition: .5s;
+    }
+    
+    nav #logo {
+        color: darkkhaki;
+        font-size: 1.5rem;
+        font-family: Georgia, 'Times New Roman', Times, serif;
+    }
+    
+    
+    #prof ul {
+        list-style-type: none;
+        display: flex;
+        margin: 0;
+        padding: 0;
+    }
+    
+    #prof a {
+        text-decoration: none;
+        text-transform: capitalize;
+        padding: 0px;
+        font-size: 17px;
+        display: block;
+        color: white;
+    }
+    #prof a:hover{
+        color: black;
+        transition: 0.5s;
+        -webkit-transition: 0.5s;
+        -moz-transition: 0.5s;
+        -ms-transition: 0.5s;
+        -o-transition: 0.5s;
+}
+
+#dropdown {
+        position: relative;
+    }
+    
+    #dropdown a {
+        background-color: inherit;
+        color: inherit;
+        padding: 12px 14px;
+        font-size: 20px;
+        color: black;
+        cursor: pointer;
+    }
+    
+    #dropdown-item {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        width: 134px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+    }
+    
+    #dropdown-item-log {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        width: 134px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+        margin-right: 10px;
+    }
+    
+    #dropdown-item a {
+        color: black;
+        padding: 12px 14px;
+        text-decoration: none;
+        display: block;
+    }
+    
+    #dropdown a:hover {
+        background-color: #3e8e41;
+        cursor: pointer;
+    }
+    
+    #dropdown-item a:hover {
+        background-color: #f1f1f1
+    }
+    
+    #dropdown:hover #dropdown-item {
+        display: block;
+    }
+    
+    #dropdown:hover #dropdown-item-log {
+        display: block;
+        margin-right: 20px;
+    }
+  
+/*Register_form*/
+#hint_id_password1 ul li{
+    list-style: none;
+}
+
+/*Login page */
+#div_login {
+    max-width: 500px;
+    margin: 0 auto;
+    margin-top: 50px;
+    text-align: center;
+    border: 1px solid slategray;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, .12), 0 4px 8px rgba(0, 0, 0, .06);
+    background-color: #eff0f0;
+    border-radius: 10% 1% 10% 1%;
+    -webkit-border-radius: 10% 1% 10% 1%;
+    -moz-border-radius: 10% 1% 10% 1%;
+    -ms-border-radius: 10% 1% 10% 1%;
+    -o-border-radius: 10% 1% 10% 1%;
+}
+
+#div_login input[type="email"],
+#div_login input[type="password"] {
+    border: 0;
+    background: none;
+    display: block;
+    margin: 0px auto;
+    text-align: center;
+    border: 2px solid#3498db;
+    padding: 6px 8px;
+    max-width: 280px;
+    outline: none;
+    color: black;
+    border-radius: 24px;
+    transition: .25s;
+    height: 45px;
+}
+
+#div_login input[type="email"]:focus,
+#div_login input[type="password"]:focus {
+    max-width: 310px;
+    border-color: #e28d0d;
+    font-size: 15px;
+}
+
+#log-btn {
+    margin-top: 15px;
+}
+
+#forgot-pass a {
+    margin-top: 5px;
+    text-decoration: none;
+    display: flex;
+    justify-content: space-around;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    appearance: textfield;
+}
+
+
+
+   

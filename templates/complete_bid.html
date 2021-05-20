@@ -1,0 +1,60 @@
+{% extends 'base.html' %}{% load crispy_forms_tags %} {% block title %}My Auction Items{% endblock %} {% block style %}
+<style>
+    .card-deck {
+        max-width: 450px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, .12), 0 4px 8px rgba(0, 0, 0, .06);
+    }
+    .card{
+        border: none;
+    }
+</style>
+{% endblock %} {% block body %}
+
+<div class="container">
+    <div>
+        {% if messages %} {% for message in messages %}
+        <div class="alert alert-{{message.tags}}" role="alert">
+            <button type="button" class="close" data-dismiss="alert">X</button> {{message}}
+        </div>
+        {% endfor %} {% endif %}
+    </div>
+
+    <div class="container">
+        {% if winner_bid %}
+        <div class="row">
+            <div class="col"></div>
+            <div class="col-mid-auto">
+                <h3 class="text-center">Bid Winner of {{winner_bid.item }} auctions.
+                    <hr>
+                </h3>
+                <div class="card-deck">
+                    <div class="card container" >
+                        <img src="{{winner_bid.user.profile.image.url}}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h4 class="card-title" style="text-align: center;"> <span style="color: rgb(255, 136, 0);">Congratulations</span> {{winner_bid.user.first_name}} {{winner_bid.user.last_name}}</h4>
+                            <p class="card-text">Thanks for participating in Bid.</p>
+                            <p class="card-text"> Your Price- {{winner_bid.bid}}tk is the Highest Bid in this {{winner_bid.item }} auctions.</p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+
+            </div>
+        </div>
+
+        {% else %}
+        <p class="text-center" style="color: red;margin-top:60px;">No bids here</p>
+        {% endif %}
+    </div>
+
+
+</div>
+
+
+{% endblock %} {% block js_script %}
+
+<script>
+</script>
+{% endblock %}
