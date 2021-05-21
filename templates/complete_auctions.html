@@ -31,6 +31,7 @@
                             <h5 class="card-title">{{auction.Name}}</h5>
                             <p class="card-text  show-read-more">{{auction.Description}}</p>
                             <a class="btn btn-info btn-sm" href="{% url 'complete_bid' auction.id %}">Bid Winner</a>
+                            <a class="btn btn-warning btn-sm" href="{% url 'delete_items' auction.id %}">Delete</a>
                         </div>
                         <div class="card-footer">
                             <small class="text-muted">{{auction.DateTime.date|timesince:today}} ago.</small>

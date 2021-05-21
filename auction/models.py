@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 class Auction_item(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE)
     Name=models.CharField(max_length=50)
-    Description=models.TextField(max_length=200)
+    Description=models.TextField()
     Photo=models.ImageField(upload_to='images/others')
     Price=models.IntegerField()
     DateTime=models.DateTimeField()

@@ -7,6 +7,7 @@ urlpatterns = [
     path('complete_bid/<int:id>/', views.complete_bids, name='complete_bid'),
     path('auction_create', views.create_auction, name='auction_create'),
     path('my_auction_itmes/', views.user_items, name='user_items'),
+    path('delete_itmes/<int:id>', views.delete_user_items, name='delete_items'),
     path('edit/my_auction_itmes/<int:id>/', views.edit_user_items, name='edit_user_items'),
     path('item_details/<int:id>', views.item_details, name='item_details'),
     path('item_details/bid_list/<int:id>',views.bid_list,name='bid_list'),

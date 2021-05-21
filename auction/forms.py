@@ -25,15 +25,15 @@ class Auction_item_Form(forms.ModelForm):
 
         self.fields['Name'].widget.attrs.update({
 
-            'placeholder': 'Product Name',
+            'placeholder': 'Name',
         })
         self.fields['Description'].widget.attrs.update({
 
-            'placeholder': 'Product Description'
+            'placeholder': '(Maximum 500 words)'
         })
         self.fields['Price'].widget.attrs.update({
 
-            'placeholder': 'Minimum Bid Price',
+            'placeholder': 'Bid Price',
 
         })
 

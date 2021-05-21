@@ -117,11 +117,16 @@ def user_items(request):
     return render(request, 'my_items.html', context)
 
 
+def delete_user_items(request, id):
+    item = Auction_item.objects.get(id=id)
+    item.delete()
+    messages.success(request, 'Delete Successfully.')
+    return redirect('user_items')
+
 def edit_user_items(request, id):
     item = Auction_item.objects.get(id=id, active=True)
     if request.method == 'POST':
-        form = Auction_item_Form(request.POST or None,
-                                 request.FILES or None, instance=item)
+        form = Auction_item_Form(request.POST or None,request.FILES or None, instance=item)
         if form.is_valid():
             form.save()
             messages.success(request, 'Updated Successfully.')
@@ -145,8 +150,7 @@ def item_details(request, id):
             test = Bid.objects.filter(user=user, item=item)
             if not test:
                 if user == item.user:
-                    messages.warning(
-                        request, 'This is your auctoin item. You can not bid.')
+                    messages.warning(request, 'This is your auctoin item. You can not bid.')
                     return redirect('bid_list', id)
                 else:
                     new_bid = Bid()
@@ -154,9 +158,19 @@ def item_details(request, id):
                     new_bid.item = item
                     new_bid.description = form.cleaned_data['description']
                     new_bid.bid = form.cleaned_data['bid']
-                    new_bid.save()
-                    messages.success(request, 'Bidding successfully.')
-                    return redirect('bid_list', id)
+                    if new_bid.bid < item.Price:
+                        messages.warning(request, 'Your bid is smaller than item price.')
+                        item_details = 'item_details'
+                        context = {
+                            'item': item,
+                            'form': form,
+                            'item_details': item_details
+                        }
+                        return render(request, 'auction_page.html', context)
+                    else:
+                        new_bid.save()
+                        messages.success(request, 'Bidding successfully.')
+                        return redirect('bid_list', id)
             else:
                 messages.warning(request, 'You Completed Bid already.')
                 item_details = 'item_details'
