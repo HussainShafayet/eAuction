@@ -62,7 +62,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'eBay.urls'
+ROOT_URLCONF = 'eAuction.urls'
 
 TEMPLATES = [
     {
@@ -80,7 +80,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'eBay.wsgi.application'
+WSGI_APPLICATION = 'eAuction.wsgi.application'
 
 
 # Database
