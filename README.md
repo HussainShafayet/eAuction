@@ -1,7 +1,6 @@
 # eAuction
-# Project Title
 
-One Paragraph of project description goes here
+This is online auction based web app.
 
 ## Getting Started
 
