@@ -24,6 +24,8 @@
         <div class="row">
             {% for auction in complete %} {% if auction.active == False %}
             <div class="col">
+                <div class="container py-4">
+                <div class="card-deck-wrapper">
                 <div class="card-deck">
                     <div class="card">
                         <img src="{{auction.Photo.url}}" class="card-img-top" alt="...">
@@ -39,10 +41,9 @@
                     </div>
                 </div>
             </div>
-            {% endif %} {%endfor%}
-            <div class="col">
-
             </div>
+            </div>
+            {% endif %} {%endfor%}
         </div>
 
         {% else %}

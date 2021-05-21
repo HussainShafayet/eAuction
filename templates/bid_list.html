@@ -23,6 +23,8 @@
             {% for auction in bids %} {% if auction.active == True %}
 
             <div class="col">
+                <div class="container py-4">
+                <div class="card-deck-wrapper">
                 <div class="card-deck">
                     <div class="card">
                         <img src="{{auction.item.Photo.url}}" class="card-img-top" alt="...">
@@ -36,12 +38,11 @@
                             <small class="text-muted">{{auction.item.DateTime.date|timeuntil:today}} left.</small>
                         </div>
                     </div>
+                    </div>
                 </div>
+              </div>
             </div>
             {% endif %} {%endfor%}
-            <div class="col">
-
-            </div>
         </div>
 
         {% else %}
