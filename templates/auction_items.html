@@ -1,4 +1,4 @@
-{% extends 'base.html' %}{% load crispy_forms_tags %} {% block title %} Auction Items{% endblock %} {% block style %}
+{% extends 'base.html' %}{% load crispy_forms_tags %} {% block title %} {% if value == 'Form' %}Create Auction {% elif value == 'edit_user_item' %}Auction Details {% else %}Auction Items {% endif %}{% endblock %} {% block style %}
 <style>
     .show-read-more .more-text {
         display: none;
@@ -83,22 +83,22 @@
             {% for auction in new_list %} {% if auction.active == True %}
             <div class="col">
                 <div class="container py-4">
-                <div class="card-deck-wrapper">
-                    <div class="card-deck">
-                    <div class="card">
-                        <img src="{{auction.Photo.url}}" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">{{auction.Name}}</h5>
-                            <p class="card-text  show-read-more">{{auction.Description}}</p>
-                            <a class="btn btn-info btn-sm" href="{% url 'item_details' auction.id %}">Details</a>
-                        </div>
-                        <div class="card-footer">
-                            <small class="text-muted">{{auction.DateTime|timeuntil:today}} left.</small>
+                    <div class="card-deck-wrapper">
+                        <div class="card-deck">
+                            <div class="card">
+                                <img src="{{auction.Photo.url}}" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{auction.Name}}</h5>
+                                    <p class="card-text  show-read-more">{{auction.Description}}</p>
+                                    <a class="btn btn-info btn-sm" href="{% url 'item_details' auction.id %}">Details</a>
+                                </div>
+                                <div class="card-footer">
+                                    <small class="text-muted">{{auction.DateTime|timeuntil:today}} left.</small>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                </div>
-            </div>
             </div>
             {% endif %} {%endfor%}
         </div>

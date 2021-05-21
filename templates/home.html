@@ -1,4 +1,116 @@
-{% extends 'base.html' %} {% block body %}
+{% extends 'base.html' %}{% block title %}eAuction{% endblock %} {% block body %}
+
+<div class="container">
+    <div>
+        {% if messages %} {% for message in messages %}
+        <div class="alert alert-{{message.tags}}" role="alert">
+            <button type="button" class="close" data-dismiss="alert">X</button> {{message}}
+        </div>
+        {% endfor %} {% endif %}
+    </div>
+    <div class="row">
+        <div class="col-sm">
+            <div class="container" style="box-shadow: 0 10px 20px rgba(0, 0, 0, .12), 0 4px 8px rgba(0, 0, 0, .06); min-height:400px;margin-bottom: 20px;">
+                <div style="text-align: center; padding:5px;">
+                    <h4 style="font-size: 2rem;margin-top: 50px;">Welcome to {{user.first_name}} {{user.last_name}}</h4>
+                </div>
+                <div style="margin-top: 20px;">
+                    <p>This is your dashboard. As a auction app you can add auction item. You can also Bid auction item which is added by others usres.</p>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-sm">
+            <div style="min-height:400px; box-shadow: 0 10px 20px rgba(0, 0, 0, .12), 0 4px 8px rgba(0, 0, 0, .06);">
+                <div style="height: 50px; background-color:azure; display:flex;align-items:center;justify-content:center;">
+                    <h5 class="text-center">Upcoming Auction item</h5>
+                </div>
+                <div class="row container" style="width: inherit;">
+                    <div class="col-sm">
+                        <div style="display: flex;align-items:center;justify-content:center;margin-top:10px;">
 
 
-{{val}} {% endblock %}
+                        </div>
+                        <div>
+                            {% if auction_item %}
+                            <table class="table">
+                                <thead class="thead">
+                                    <tr>
+                                        <th>Item</th>
+                                        <th>Price</th>
+                                        <th>End Bid</th>
+                                        <th>Details</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for auction in auction_item %} {% if auction.active == True %}
+                                    <tr>
+                                        <td>{{auction.Name}}</td>
+                                        <td>{{auction.Price}}</td>
+                                        <td>{{auction.DateTime.date}}</td>
+                                        <td><a class="btn btn-info btn-sm" href="{% url 'item_details' auction.id %}">More</a></td>
+                                    </tr>
+                                    {% endif %} {%endfor%}
+
+                                </tbody>
+                            </table>
+                            {% else %}
+                            <p>No auction item added yet.</p>
+                            {%endif%}
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row" style="margin-top: 100px;">
+        <div class="col-sm">
+            <div style="min-height:400px; box-shadow: 0 10px 20px rgba(0, 0, 0, .12), 0 4px 8px rgba(0, 0, 0, .06);">
+                <div style="height: 50px; background-color:azure; display:flex;align-items:center;justify-content:center;">
+                    <h5 class="text-center">Recent Bid</h5>
+                </div>
+                <div class="row container" style="width: inherit;">
+                    <div class="col-sm">
+                        <div style="display: flex;align-items:center;justify-content:center;margin-top:10px;">
+
+
+                        </div>
+                        <div>
+                            {% if bid_list %}
+                            <table class="table">
+                                <thead class="thead">
+                                    <tr>
+                                        <th>Item</th>
+                                        <th>Description</th>
+                                        <th>Bid</th>
+                                        <th>Details</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for auction in bid_list %} {% if auction.active == True %}
+                                    <tr>
+                                        <td>{{auction.item}}</td>
+                                        <td>{{auction.description}}</td>
+                                        <td>{{auction.bid}}</td>
+                                        <td><a class="btn btn-info btn-sm" href="{% url 'bid_details' auction.id %}">More</a></td>
+                                    </tr>
+                                    {% endif %} {%endfor%}
+
+                                </tbody>
+                            </table>
+                            {% else %}
+                            <p>No Bid yet.</p>
+                            {%endif%}
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

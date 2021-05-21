@@ -8,13 +8,19 @@ from django.contrib.auth import authenticate, login, logout, update_session_auth
 from django.contrib.auth.views import PasswordChangeForm, PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.core.mail import EmailMessage
-
+from auction.models import Auction_item, Bid
 
 # Create your views here.
 
+
 def home(request):
-    val = 'home'
-    return render(request, 'home.html', {'val': val})
+    auction_item = Auction_item.objects.filter(active=True)
+    bid_list = Bid.objects.filter(active=True).order_by('-bid')
+    context = {
+        'auction_item': auction_item,
+        'bid_list': bid_list,
+    }
+    return render(request, 'home.html', context)
 
 
 # User_Registration
@@ -136,7 +142,8 @@ def profile(request):
 def profile_edit(request, id):
     if request.method == 'POST':
         form = Profile_edit_Form(request.POST, instance=request.user)
-        form2 = Profile_form(request.POST or None, request.FILES or None, instance=request.user.profile)
+        form2 = Profile_form(
+            request.POST or None, request.FILES or None, instance=request.user.profile)
         if form.is_valid() and form2.is_valid():
             form.save()
             profile = Profile.objects.get(user=request.user)
